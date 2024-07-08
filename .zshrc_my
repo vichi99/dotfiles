@@ -1,0 +1,54 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+
+# Keep 2000 lines of history within the shell and save it to ~/.zsh_history:
+HISTSIZE=2000
+SAVEHIST=2000
+HISTFILE=~/.zsh_history
+# turn off find duplicate via ctrl + r
+setopt HIST_FIND_NO_DUPS
+# turn off save duplicate to history
+setopt HIST_IGNORE_ALL_DUPS
+
+
+# Pyenv
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+
+WORDCHARS='*?_-[]~&;!#$%^(){}<>'
+
+
+# aliases
+# docker clear all dangling images
+alias docker-clear='docker rmi $(docker images -f "dangling=true" -q)'
+alias docker-clear-containers='docker rm $(docker ps -a -f status=exited -f status=created -q)'
+
+alias ls='lsd'
+alias la='ls -a'
+alias ll='ls -la'
+alias lt='ls --tree'
+
+alias git-log='git log --pretty=format:"%h - %an, %ar : %s" --graph'
+alias git-log-tags="git log --color --no-walk --tags --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias git-remove-merged-branches='git branch --merged | grep -v \* | xargs git branch -D'
+
+alias crypto='/Users/janvicha/.pyenv/shims/python /Users/janvicha/Projects/personal/CryptoBoard/app/main.py'
+
+# spruce rust file size utility
+alias dud='spruce --sort size -d'
+
+# vscode
+alias vscode_l='cp ~/Projects/personal/vscode/settings_laptop.json .vscode/settings.json'
+alias vscode_t='cp ~/Projects/personal/vscode/settings_train.json .vscode/settings.json'
+
+# skippay core mypy
+if [[ "$(pwd)" == "/Users/jan.vicha/Projects/work/skippay/core" ]]; then
+    export PYTHONPATH=\"$PYTHONPATH:$(realpath var/site-packages/):$(realpath dj/libs/)\"
+fi
+
+
+# Docker separator https://github.com/docker/compose-switch/issues/24
+# export COMPOSE_COMPATIBILITY=tru

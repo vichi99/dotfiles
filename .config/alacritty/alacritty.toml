@@ -1,0 +1,17 @@
+live_config_reload = true
+
+[shell]
+program = "/bin/zsh"
+args = ["--login"]
+
+[window]
+decorations = "buttonless"
+dynamic_padding = false
+opacity = 0.98
+
+[window.padding]
+x = 20
+y = 20
+
+[font]
+normal = { family = "AnonymicePro Nerd Font Mono", style = "Regular" }
