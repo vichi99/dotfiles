@@ -1,6 +1,3 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-
 # Keep 2000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=2000
 SAVEHIST=2000
@@ -30,6 +27,13 @@ alias ls='lsd'
 alias la='ls -a'
 alias ll='ls -la'
 alias lt='ls --tree'
+alias cat='bat'
+alias lg='
+    if [[ "$(pwd)" == "/Users/jan.vicha/Projects/work/skippay/core" ]]; then
+        export PYTHONPATH="$PYTHONPATH:$(realpath var/site-packages/):$(realpath dj/libs/)"
+    fi
+    lazygit
+'
 
 alias git-log='git log --pretty=format:"%h - %an, %ar : %s" --graph'
 alias git-log-tags="git log --color --no-walk --tags --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -43,6 +47,7 @@ alias dud='spruce --sort size -d'
 # vscode
 alias vscode_l='cp ~/Projects/personal/vscode/settings_laptop.json .vscode/settings.json'
 alias vscode_t='cp ~/Projects/personal/vscode/settings_train.json .vscode/settings.json'
+alias vscode_big_monitor='cp ~/Projects/personal/vscode/settings_big_monitor.json .vscode/settings.json'
 
 # skippay core mypy
 if [[ "$(pwd)" == "/Users/jan.vicha/Projects/work/skippay/core" ]]; then

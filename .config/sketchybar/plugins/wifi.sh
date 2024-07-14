@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SSID=$(networksetup -getairportnetwork en0 | awk -F': ' '{print $2}' | cut -c 1-17)
+SSID=$(networksetup -getairportnetwork en0 | awk -F': ' '{print $2}' | cut -c 1-12)
 
 if [ "$SSID" = "" ]; then
   sketchybar --set $NAME label="Disconnected" icon=􀙥
