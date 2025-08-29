@@ -8,4 +8,6 @@ cp -r ~/.config/sketchybar config/
 cp -r ~/.zprofile home/
 cp -r ~/.zshrc home/
 cp -r ~/.vimrc home/
-cp -r ~/.vscode home/
+
+mkdir -p home/.vscode
+cp -r ~/.vscode/settings.json home/.vscode/
