@@ -24,6 +24,7 @@ sketchybar --bar height=37        \
                  padding_left=10  \
                  padding_right=10 \
                  sticky=on        \
+                 notch_width=0    \
                  color=$BAR_COLOR
 
 ##### Changing Defaults #####
@@ -48,6 +49,7 @@ sketchybar --default icon.font="SF Pro:Semibold:10.0"  \
 # -- Left Side Items --
 source $ITEM_DIR/spaces.sh
 source $ITEM_DIR/front_app.sh
+source $ITEM_DIR/btc.sh
 
 # -- Right Side Items --
 source $ITEM_DIR/calendar.sh
@@ -62,5 +64,11 @@ source $ITEM_DIR/cpu.sh
 ##### Finalizing Setup #####
 # The below command is only needed at the end of the initial configuration to
 # force all scripts to run the first time, it should never be run in an item script.
+
+# Force refresh on system wake (helps with items disappearing)
+# sketchybar --add item refresh.helper left \
+#            --set refresh.helper drawing=off \
+#                                 script="$PLUGIN_DIR/force_refresh.sh" \
+#            --subscribe refresh.helper system_woke
 
 sketchybar --update

@@ -139,3 +139,5 @@ if [ -f '/Users/jan.vicha/gcloud/google-cloud-sdk/completion.zsh.inc' ]; then . 
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="/opt/homebrew/bin:$PATH"
+# Added by Antigravity
+export PATH="/Users/jan.vicha/.antigravity/antigravity/bin:$PATH"

@@ -6,4 +6,4 @@ sketchybar --add item front_app left \
                                  icon.font="sketchybar-app-font:Regular:16.0" \
                                  label.color=$BAR_COLOR \
                                  script="$PLUGIN_DIR/front_app.sh"            \
-           --subscribe front_app front_app_switched
+           --subscribe front_app front_app_switched system_woke
