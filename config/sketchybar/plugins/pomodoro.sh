@@ -77,7 +77,9 @@ finish() {
   rm -f "$STATE_FILE"
   STATE="idle"
   render
-  afplay /System/Library/Sounds/Glass.aiff &
+  # The overlay plays the sound itself, so there is no afplay here — two would
+  # fire at once. Backgrounded: it lives for 5s and this runs from a 5s tick.
+  "$CONFIG_DIR/plugins/overlay.sh" "Time is up" &
   osascript -e 'display notification "Time is up" with title "Pomodoro"'
 }
 
