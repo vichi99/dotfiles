@@ -6,6 +6,14 @@ export WHITE=0xffffffff
 # random one on every sketchybar start / --reload.
 PINNED_SCHEME=""
 
+# Opacity of the bar background in percent: 100 = solid, 0 = fully see-through.
+# 80 means "20% transparent".
+BAR_ALPHA=0
+
+# Blur behind the bar, in pixels (0-50 useful, not clamped). Independent of
+# BAR_ALPHA: any blur shows as a strip even at BAR_ALPHA=0.
+export BAR_BLUR=5
+
 # name        BAR_COLOR  ITEM_BG_COLOR  ACCENT_COLOR
 # ACCENT_COLOR is painted as a background with BAR_COLOR text (items/front_app.sh,
 # plugins/space.sh), so keep it light enough to carry the dark tone on top.
@@ -54,7 +62,15 @@ fi
 # positional parameters of whoever sourced this file — plugins/pomodoro.sh
 # dispatches on "$1" after sourcing us.
 read -r _scheme_name BAR_COLOR ITEM_BG_COLOR ACCENT_COLOR <<< "$_scheme_line"
-export BAR_COLOR ITEM_BG_COLOR ACCENT_COLOR
 
-unset _scheme_cache _scheme_name _scheme_line
+# Only the bar background is translucent (blur_radius=30 frosts what shows through).
+# BAR_COLOR itself stays opaque, because front_app, plugins/space.sh and the pomodoro
+# hover draw their label in it on top of ACCENT_COLOR — a see-through label reads as
+# washed out rather than as glass.
+_scheme_alpha=$(printf '%02x' $(( (BAR_ALPHA * 255 + 50) / 100 )))
+BAR_BG_COLOR="0x${_scheme_alpha}${BAR_COLOR#0x??}"
+
+export BAR_COLOR ITEM_BG_COLOR ACCENT_COLOR BAR_BG_COLOR
+
+unset _scheme_cache _scheme_name _scheme_line _scheme_alpha
 unset -f _scheme_row
