@@ -49,6 +49,7 @@ sketchybar --default icon.font="SF Pro:Semibold:10.0"  \
 source $ITEM_DIR/spaces.sh
 source $ITEM_DIR/front_app.sh
 source $ITEM_DIR/btc.sh
+source $ITEM_DIR/pomodoro.sh
 
 # -- Right Side Items --
 source $ITEM_DIR/calendar.sh
