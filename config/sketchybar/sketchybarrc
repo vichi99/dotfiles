@@ -1,5 +1,6 @@
 #!/bin/bash
 
+SKETCHYBAR_ROLL_SCHEME=1       # Pick a new random color scheme on every start / --reload
 source "$CONFIG_DIR/colors.sh" # Loads all defined colors
 
 # This is a demo config to show some of the most important commands more easily.
