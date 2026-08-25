@@ -3,7 +3,7 @@
 sketchybar --add item front_app left \
            --set front_app       background.color=$ACCENT_COLOR \
                                  icon.color=$BAR_COLOR \
-                                 icon.font="sketchybar-app-font:Regular:16.0" \
+                                 icon.font="sketchybar-app-font:Regular:14.0" \
                                  label.color=$BAR_COLOR \
                                  label.max_chars=11 \
                                  script="$PLUGIN_DIR/front_app.sh"            \
