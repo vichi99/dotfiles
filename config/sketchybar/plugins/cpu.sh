@@ -1,10 +1,16 @@
 #!/bin/bash
 
-CORE_COUNT=$(sysctl -n machdep.cpu.thread_count)
-CPU_INFO=$(ps -eo pcpu,user)
-CPU_SYS=$(echo "$CPU_INFO" | grep -v $(whoami) | sed "s/[^ 0-9\.]//g" | awk "{sum+=\$1} END {print sum/(100.0 * $CORE_COUNT)}")
-CPU_USER=$(echo "$CPU_INFO" | grep $(whoami) | sed "s/[^ 0-9\.]//g" | awk "{sum+=\$1} END {print sum/(100.0 * $CORE_COUNT)}")
+source "$CONFIG_DIR/colors.sh"
 
-CPU_PERCENT="$(echo "$CPU_SYS $CPU_USER" | awk '{printf "%.0f\n", ($1 + $2)*100}')"
+# ps reports each process as a percentage of one core, so the sum divided by the
+# core count is the system-wide load. This runs ~5 points under `top`, which also
+# counts kernel time that is not attributed to any process.
+CORES=$(sysctl -n machdep.cpu.thread_count)
+PCT=$(ps -eo pcpu= | awk -v c="$CORES" '{s+=$1} END {printf "%.0f", s/c}')
 
-sketchybar --set $NAME label="$CPU_PERCENT%"
+if   [ "$PCT" -gt 85 ]; then COLOR=$CRIT_COLOR
+elif [ "$PCT" -gt 60 ]; then COLOR=$WARN_COLOR
+else                         COLOR=$WHITE
+fi
+
+sketchybar --set "$NAME" label="$PCT%" label.color="$COLOR" icon.color="$COLOR"

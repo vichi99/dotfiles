@@ -2,6 +2,11 @@
 
 export WHITE=0xffffffff
 
+# Threshold colors for the cpu/ram gauges. Deliberately scheme-independent so they
+# stay legible on every palette.
+export WARN_COLOR=0xffe5c07b
+export CRIT_COLOR=0xffe06c75
+
 # Fill in a scheme name from the table below to pin it, leave empty to pick a
 # random one on every sketchybar start / --reload.
 PINNED_SCHEME=""
