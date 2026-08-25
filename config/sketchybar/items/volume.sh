@@ -1,5 +1,9 @@
 #!/bin/bash
 
 sketchybar --add item volume right \
-           --set volume script="$PLUGIN_DIR/volume.sh" \
-           --subscribe volume system_woke
+           --set volume update_freq=10 \
+                      icon=􀊩 \
+                      label="?" \
+                      drawing=on \
+                      script="$PLUGIN_DIR/volume.sh" \
+           --subscribe volume volume_change system_woke

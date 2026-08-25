@@ -20,7 +20,6 @@ ITEM_DIR="$CONFIG_DIR/items"
 sketchybar --bar height=37        \
                  blur_radius=30   \
                  position=top     \
-                 sticky=off       \
                  padding_left=10  \
                  padding_right=10 \
                  sticky=on        \
@@ -66,9 +65,9 @@ source $ITEM_DIR/cpu.sh
 # force all scripts to run the first time, it should never be run in an item script.
 
 # Force refresh on system wake (helps with items disappearing)
-# sketchybar --add item refresh.helper left \
-#            --set refresh.helper drawing=off \
-#                                 script="$PLUGIN_DIR/force_refresh.sh" \
-#            --subscribe refresh.helper system_woke
+sketchybar --add item refresh.helper left \
+           --set refresh.helper drawing=off \
+                                script="$PLUGIN_DIR/force_refresh.sh" \
+           --subscribe refresh.helper system_woke display_change
 
 sketchybar --update
