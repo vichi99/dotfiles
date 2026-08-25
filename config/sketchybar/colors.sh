@@ -10,6 +10,9 @@ PINNED_SCHEME=""
 # 80 means "20% transparent".
 BAR_ALPHA=0
 
+# Outline width around each item chip, in pixels. 0 turns the borders off.
+export ITEM_BORDER_WIDTH=1
+
 # Blur behind the bar, in pixels (0-50 useful, not clamped). Independent of
 # BAR_ALPHA: any blur shows as a strip even at BAR_ALPHA=0.
 export BAR_BLUR=5
@@ -70,7 +73,17 @@ read -r _scheme_name BAR_COLOR ITEM_BG_COLOR ACCENT_COLOR <<< "$_scheme_line"
 _scheme_alpha=$(printf '%02x' $(( (BAR_ALPHA * 255 + 50) / 100 )))
 BAR_BG_COLOR="0x${_scheme_alpha}${BAR_COLOR#0x??}"
 
-export BAR_COLOR ITEM_BG_COLOR ACCENT_COLOR BAR_BG_COLOR
+# Outline around every item chip: the chip color at 30% brightness. Derived rather
+# than reusing BAR_COLOR, which in some schemes sits too close to ITEM_BG_COLOR to
+# read as an edge (tokyo differs by only 1.17:1).
+_scheme_darken() { # 0xAARRGGBB -> the same color at 30% brightness
+  local h=${1#0x}
+  printf '0x%s%02x%02x%02x' "${h:0:2}" \
+    $(( 16#${h:2:2} * 30 / 100 )) $(( 16#${h:4:2} * 30 / 100 )) $(( 16#${h:6:2} * 30 / 100 ))
+}
+ITEM_BORDER_COLOR="$(_scheme_darken "$ITEM_BG_COLOR")"
+
+export BAR_COLOR ITEM_BG_COLOR ACCENT_COLOR BAR_BG_COLOR ITEM_BORDER_COLOR
 
 unset _scheme_cache _scheme_name _scheme_line _scheme_alpha
-unset -f _scheme_row
+unset -f _scheme_row _scheme_darken
